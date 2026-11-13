@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow"><!-- 임시 테스트용: 정식 공개 때 이 줄 삭제 -->
+<title>인테리어 상담 신청 - RAUMZ DESIGN</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --brand:#e2d5c5; --brand-soft:#f4eee6; --ink:#111; --ink2:#444; --mute:#999; --line:#e2e2e2; --soft:#f7f7f7; --bg:#fdfcfa;
+    --radius:999px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:Pretendard,"Spoqa Han Sans Neo",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  input,textarea{font-family:inherit;color:var(--ink)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:10;background:rgba(253,252,250,.92);backdrop-filter:blur(8px);border-bottom:1px solid transparent}
+  .hd{max-width:1100px;margin:0 auto;height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+  .logo{display:inline-flex;align-items:center;text-decoration:none}
+  .logo img{height:26px;width:auto;display:block}
+  @media(min-width:860px){.logo img{height:30px}}
+  .pill-cta{height:40px;padding:0 20px;border-radius:var(--radius);background:var(--ink);color:#fff;font-size:14px;font-weight:600;display:inline-flex;align-items:center;text-decoration:none}
+  .nav{display:none;gap:36px;font-size:15px}
+  .nav a{color:var(--ink);text-decoration:none}
+  @media(min-width:860px){.nav{display:flex}.hd{height:72px;padding:0 32px}}
+
+  /* layout */
+  main{max-width:640px;margin:0 auto;padding:32px 20px 96px;min-height:calc(100vh - 60px)}
+  .eyebrow{font-size:13px;color:var(--mute);margin-bottom:8px}
+  h1{font-size:26px;line-height:1.35;font-weight:700;letter-spacing:-.02em}
+  .sub{margin-top:10px;font-size:14px;color:var(--ink2)}
+  @media(min-width:640px){main{padding-top:64px}h1{font-size:32px}}
+
+  /* progress */
+  .progress{display:flex;align-items:center;gap:12px;margin:28px 0 8px}
+  .bar{flex:1;height:2px;background:var(--line);position:relative}
+  .bar i{position:absolute;left:0;top:0;height:100%;background:var(--ink);transition:width .35s ease}
+  .count{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums;min-width:30px;text-align:right}
+
+  /* options */
+  .step{display:none;animation:in .3s ease}
+  .step.on{display:block}
+  @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
+  .opts.one{grid-template-columns:1fr}
+  .opt{min-height:60px;padding:12px 14px;border-radius:var(--radius);background:var(--soft);border:1px solid transparent;font-size:15px;text-align:center;transition:.15s;word-break:keep-all}
+  .opt:hover{background:var(--brand-soft)}
+  .opt.sel{background:var(--ink);color:#fff}
+  .hint{margin-top:14px;font-size:12px;color:var(--mute)}
+
+  /* actions */
+  .actions{display:flex;gap:10px;margin-top:32px}
+  .btn{height:48px;border-radius:var(--radius);font-size:14px;font-weight:600;padding:0 28px;transition:.15s}
+  .btn.ghost{border:1px solid var(--ink);background:#fff}
+  .btn.main{flex:1;background:var(--ink);color:#fff}
+  .btn:disabled{background:var(--soft);color:#b3b3b3;border-color:transparent;cursor:not-allowed}
+
+  /* contact form */
+  .notice{margin-top:22px;padding:16px 18px;background:var(--brand);border-radius:12px;font-size:13px;color:var(--ink2);text-align:center}
+  .notice b{display:block;color:var(--ink);font-size:14px;margin-bottom:2px}
+  .summary{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .chip{font-size:12px;padding:5px 11px;border-radius:var(--radius);background:var(--brand-soft);color:var(--ink2)}
+  .field{margin-top:26px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:2px}
+  .field label em{color:#d33;font-style:normal;margin-left:2px}
+  .ul{display:flex;align-items:center;border-bottom:1px solid var(--ink)}
+  .ul input,.ul textarea{flex:1;width:100%;height:44px;border:0;outline:0;background:transparent;font-size:16px;padding:0} /* 16px prevents iOS zoom */
+  .ul input::placeholder,.ul textarea::placeholder{color:var(--mute)}
+  .ul button{font-size:14px;font-weight:700;padding:0 0 0 12px;height:44px;white-space:nowrap}
+  textarea{resize:none;height:84px!important;padding:10px 0!important;line-height:1.5}
+  .err{font-size:12px;color:#d33;margin-top:4px;min-height:16px}
+  .agree{margin-top:30px;display:grid;gap:12px;font-size:13px;color:var(--ink2)}
+  .agree label{display:flex;align-items:flex-start;gap:10px;cursor:pointer}
+  .agree input{width:18px;height:18px;accent-color:var(--ink);margin-top:1px;flex:none}
+  .agree .all{font-weight:700;color:var(--ink)}
+  .agree a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+
+  .hp{position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0}
+  /* done */
+  .done{text-align:center;padding-top:40px}
+  .done .check{width:56px;height:56px;border-radius:50%;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:22px}
+  .done p{margin-top:12px;color:var(--ink2);font-size:14px}
+  .done .links{margin-top:28px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+  /* footer */
+  footer{background:#000;color:#fff;padding:48px 20px 40px;font-size:12px;color:#bbb}
+  .ft{max-width:1100px;margin:0 auto}
+    .ft .slogan{margin-top:14px;color:#999}
+  .ft h4{margin:28px 0 8px;font-size:13px;color:#fff;letter-spacing:.08em}
+  .ft a{color:#ddd;text-decoration:none}
+  .ft .row{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:4px}
+  .ft .biz{margin-top:28px;padding-top:20px;border-top:1px solid #222;line-height:1.8}
+
+  /* sticky mobile helper: keep action bar reachable */
+  @media(max-width:639px){
+    .actions.sticky{position:sticky;bottom:0;margin:24px -20px 0;padding:12px 20px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 70%,transparent)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <a class="logo" href="#" aria-label="RAUMZ DESIGN"><img src="assets/logo.png" alt="RAUMZ DESIGN Interior Architecture Studio"></a>
+    <nav class="nav">
+      <a href="#">서비스 소개</a><a href="#">포트폴리오</a><a href="#">스토리</a><a href="https://www.instagram.com/raumz.design/" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <a class="pill-cta" href="#">상담 신청</a>
+  </div>
+</header>
+
+<main id="app">
+  <div id="flow">
+    <p class="eyebrow">상담 신청</p>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+
+    <div class="progress" aria-label="진행 상황">
+      <div class="bar"><i id="barfill"></i></div>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div id="steps"></div>
+  </div>
+
+  <div id="done" class="done" hidden>
+    <div class="check">✓</div>
+    <h1>상담 신청이 완료되었습니다</h1>
+    <p>담당 디자이너가 확인 후 <b>영업일 기준 1일 이내</b>에 연락드리겠습니다.</p>
+    <div class="links">
+      <a class="btn ghost" style="display:inline-flex;align-items:center;text-decoration:none" href="https://www.instagram.com/raumz.design/" target="_blank" rel="noopener">시공 사례 보기</a>
+      <a class="btn main" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;flex:0 0 auto" href="#">홈으로</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="ft">
+    <img src="assets/logo-white.png" alt="RAUMZ DESIGN" style="height:34px;width:auto;display:block">
+    <div class="slogan">기본에 충실하며, 고객의 감동을 추구합니다.</div>
+    <h4>CONTACT</h4>
+    <div class="row"><a href="tel:0269588704">TEL 02-6958-8704</a><span>평일 09:00 ~ 18:00 (공휴일 제외)</span><a href="mailto:admin@raumz.com">admin@raumz.com</a></div>
+    <h4>FOLLOW US</h4>
+    <div class="row"><a href="https://www.instagram.com/raumz.design/" target="_blank" rel="noopener">Instagram</a><a href="https://litt.ly/raumzdesign" target="_blank" rel="noopener">litt.ly</a></div>
+    <div class="row" style="margin-top:22px"><a href="#">이용약관</a><a href="#">개인정보처리방침</a></div>
+    <div class="biz">상호: (주)라움즈디자인(예시) · 대표자: 000 · 사업자등록번호: 000-00-00000<br>주소: 서울특별시 ○○구 ○○로 00, 0층<br>© Raumz Design. All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+/* ===== 설정 ===== */
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbz1Gb7nbPTbsY0aWedmaDzgEgVRTzpenSUTejEqKCzQasxEW8Z8LUvdLrpAESpGsBFq/exec";            // TODO: Apps Script 웹 앱 URL (backend/Code.gs 배포 후 붙여넣기). 비워두면 콘솔 출력 + 완료 화면만 표시
+const TURNSTILE_SITEKEY = "";   // (선택) Cloudflare Turnstile 사이트 키. 비워두면 숨김필드+시간검사만 사용
+const loadedAt = Date.now();    // 페이지 열린 시각 (너무 빠른 제출 = 봇 판별용)
+let tsToken = "";
+
+/* ===== 단계 정의 (선택 5단계 + 연락처 1단계 = 총 6단계) ===== */
+const STEPS = [
+  { key:"space",  title:"어떤 공간의<br>인테리어를 계획 중이세요?", sub:"공간 유형을 선택해 주세요.", type:"single",
+    opts:["아파트","단독주택","빌라·연립","오피스텔·기타"] },
+  { key:"size",   title:"공간의 평수를<br>선택해 주세요.", sub:"전용면적이 아닌 공급면적 기준으로 선택해도 괜찮아요.", type:"single",
+    opts:["20평 미만","20평대","30평대","40평대","50평 이상","잘 모르겠어요"] },
+  { key:"scope",  title:"인테리어가 필요한<br>공간을 모두 골라주세요.", sub:"복수 선택이 가능해요.", type:"multi", exclusive:"상담 후 결정할게요",
+    opts:["전체 리모델링","주방","욕실","거실·방","바닥·도배","창호·중문·도어","수납·붙박이","조명·전기","상담 후 결정할게요"] },
+  { key:"budget", title:"예상 예산은<br>어느 정도 생각하세요?", sub:"상담 시 얼마든지 조정할 수 있어요.", type:"single",
+    opts:["5천만원 이하","5천~8천만원","8천만원~1.2억","1.2억~2억","2억 이상","아직 미정이에요"] },
+  { key:"when",   title:"공사는 언제쯤<br>시작하고 싶으세요?", sub:"신청일 기준이에요.", type:"single",
+    opts:["1개월 이내","2~3개월 이내","3~6개월 이내","6개월 이후","아직 미정이에요"] },
+  { key:"contact", title:"마지막 단계예요.<br>연락처를 남겨주세요.", sub:"입력하신 정보는 상담 목적으로만 사용됩니다.", type:"form" }
+];
+const state = { step:0, data:{}, addr:"" };
+
+const $ = (s,r=document)=>r.querySelector(s);
+const stepsEl=$("#steps"), titleEl=$("#title"), subEl=$("#subtitle");
+
+/* ===== 렌더 ===== */
+function build(){
+  stepsEl.innerHTML = STEPS.map((s,i)=>{
+    if(s.type==="form") return `
+    <section class="step" data-i="${i}">
+      <div class="notice"><b>고객님의 소중한 정보는</b>오직 상담 목적으로만 활용됩니다.</div>
+      <div class="summary" id="summary"></div>
+
+      <div class="field"><label>이름<em>*</em></label>
+        <div class="ul"><input id="f-name" type="text" placeholder="성함을 알려주세요." autocomplete="name"></div><div class="err" id="e-name"></div></div>
+
+      <div class="field"><label>연락처<em>*</em></label>
+        <div class="ul"><input id="f-phone" type="tel" inputmode="numeric" placeholder="연락처를 작성해 주세요." autocomplete="tel" maxlength="13"></div><div class="err" id="e-phone"></div></div>
+
+      <div class="field"><label>주소<em>*</em></label>
+        <div class="ul"><input id="f-addr" type="text" placeholder="시공하려는 주소를 찾아주세요." readonly><button type="button" id="btn-addr">검색</button></div>
+        <div class="ul" style="margin-top:6px"><input id="f-addr2" type="text" placeholder="상세 주소 (동·호수)" autocomplete="address-line2"></div></div>
+
+      <div class="field"><label>요청사항 <span style="font-weight:400;color:var(--mute)">(선택)</span></label>
+        <div class="ul"><textarea id="f-memo" maxlength="300" placeholder="예) 아이가 있어 수납공간을 넉넉하게 하고 싶어요."></textarea></div></div>
+
+      <!-- 스팸 방지: 사람 눈에는 안 보이는 함정 필드(봇만 채움). 이름을 일부러 그럴듯하게 둠 -->
+      <div class="hp" aria-hidden="true"><label>웹사이트<input id="f-hp" name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <div id="ts-box" style="margin-top:22px"></div>
+
+      <div class="agree">
+        <label class="all"><input type="checkbox" id="c-all"> 약관에 모두 동의합니다</label>
+        <label><input type="checkbox" id="c-1" class="c"> <span>상담을 위한 <a href="#">개인정보 수집과 이용 동의</a> (필수)<em style="color:#d33;font-style:normal">*</em></span></label>
+        <label><input type="checkbox" id="c-2" class="c"> <span>맞춤형 제안과 혜택 안내를 위한 <a href="#">마케팅 정보 수신 동의</a> (선택)</span></label>
+      </div>
+    </section>`;
+    return `
+    <section class="step" data-i="${i}">
+      <div class="opts ${s.opts.length%2&&s.opts.length<5?'one':''}">
+        ${s.opts.map(o=>`<button type="button" class="opt" data-v="${o}">${o}</button>`).join("")}
+      </div>
+      ${s.type==="multi"?'<p class="hint">여러 개를 선택할 수 있어요.</p>':''}
+    </section>`;
+  }).join("") + `
+    <div class="actions sticky" id="actions">
+      <button type="button" class="btn ghost" id="prev" hidden>이전</button>
+      <button type="button" class="btn main" id="next" disabled>다음</button>
+    </div>`;
+  bind();
+  show(0);
+}
+
+function show(i){
+  state.step=i;
+  const s=STEPS[i];
+  titleEl.innerHTML=s.title; subEl.textContent=s.sub;
+  document.querySelectorAll(".step").forEach(el=>el.classList.toggle("on",+el.dataset.i===i));
+  $("#barfill").style.width=((i+1)/STEPS.length*100)+"%";
+  $("#count").textContent=(i+1)+" / "+STEPS.length;
+  $("#prev").hidden = i===0;
+  $("#next").textContent = s.type==="form" ? "상담 신청하기" : "다음";
+  // 선택 상태 복원
+  if(s.type!=="form"){
+    const cur=state.data[s.key]; const arr=Array.isArray(cur)?cur:(cur?[cur]:[]);
+    document.querySelectorAll(`.step[data-i="${i}"] .opt`).forEach(b=>b.classList.toggle("sel",arr.includes(b.dataset.v)));
+  } else { renderSummary(); renderTurnstile(); }
+  // 단일선택 단계는 선택 즉시 이동하므로 '다음' 버튼은 선택 후에만 활성
+  validate();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderSummary(){
+  const labels=[];
+  ["space","size","scope","budget","when"].forEach(k=>{
+    const v=state.data[k]; if(!v) return;
+    labels.push(...(Array.isArray(v)?v:[v]));
+  });
+  $("#summary").innerHTML=labels.map(l=>`<span class="chip">${l}</span>`).join("");
+}
+
+/* ===== 검증 ===== */
+const PHONE_RE=/^01[016789]-?\d{3,4}-?\d{4}$/;
+function formValid(){
+  return $("#f-name").value.trim().length>=2 && PHONE_RE.test($("#f-phone").value.trim()) && $("#f-addr").value && $("#c-1").checked && (!TURNSTILE_SITEKEY || tsToken);
+}
+function validate(){
+  const s=STEPS[state.step], btn=$("#next");
+  if(s.type==="form") btn.disabled=!formValid();
+  else { const v=state.data[s.key]; btn.disabled = Array.isArray(v)?v.length===0:!v; }
+}
+
+/* ===== 이벤트 ===== */
+function bind(){
+  // 옵션 선택
+  document.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    const s=STEPS[state.step], v=b.dataset.v;
+    if(s.type==="single"){
+      state.data[s.key]=v;
+      document.querySelectorAll(`.step.on .opt`).forEach(x=>x.classList.toggle("sel",x===b));
+      validate();
+      setTimeout(()=>go(1),220);              // 단일 선택은 자동으로 다음 단계
+    } else {
+      let arr=state.data[s.key]||[];
+      if(v===s.exclusive) arr = arr.includes(v)?[]:[v];
+      else { arr=arr.filter(x=>x!==s.exclusive); arr = arr.includes(v)?arr.filter(x=>x!==v):[...arr,v]; }
+      state.data[s.key]=arr;
+      document.querySelectorAll(`.step.on .opt`).forEach(x=>x.classList.toggle("sel",arr.includes(x.dataset.v)));
+      validate();
+    }
+  }));
+  $("#prev").addEventListener("click",()=>go(-1));
+  $("#next").addEventListener("click",()=>{ STEPS[state.step].type==="form" ? submit() : go(1); });
+
+  // 폼
+  $("#f-phone").addEventListener("input",e=>{
+    let d=e.target.value.replace(/\D/g,"").slice(0,11);
+    e.target.value = d.length>7 ? `${d.slice(0,3)}-${d.slice(3,d.length-4)}-${d.slice(-4)}` : d.length>3 ? `${d.slice(0,3)}-${d.slice(3)}` : d;
+    $("#e-phone").textContent = e.target.value && !PHONE_RE.test(e.target.value) && d.length>=10 ? "올바른 휴대폰 번호를 입력해 주세요." : "";
+    validate();
+  });
+  $("#f-name").addEventListener("input",validate);
+  $("#btn-addr").addEventListener("click",()=>{
+    if(window.daum && daum.Postcode){
+      new daum.Postcode({oncomplete:d=>{ $("#f-addr").value=(d.roadAddress||d.jibunAddress)+(d.buildingName?` (${d.buildingName})`:""); validate(); $("#f-addr2").focus(); }}).open();
+    } else { // 오프라인/차단 시 직접 입력 허용
+      const f=$("#f-addr"); f.readOnly=false; f.focus();
+      f.addEventListener("input",validate,{once:false});
+    }
+  });
+  $("#f-addr").addEventListener("click",()=>{ if($("#f-addr").readOnly) $("#btn-addr").click(); });
+  // 약관
+  const cs=[...document.querySelectorAll(".c")];
+  $("#c-all").addEventListener("change",e=>{ cs.forEach(c=>c.checked=e.target.checked); validate(); });
+  cs.forEach(c=>c.addEventListener("change",()=>{ $("#c-all").checked=cs.every(x=>x.checked); validate(); }));
+}
+
+/* ===== Cloudflare Turnstile (선택) ===== */
+let tsRendered=false;
+function renderTurnstile(){
+  if(!TURNSTILE_SITEKEY || tsRendered) return;
+  const draw=()=>{ turnstile.render("#ts-box",{sitekey:TURNSTILE_SITEKEY,callback:t=>{tsToken=t;validate();},"expired-callback":()=>{tsToken="";validate();}}); tsRendered=true; };
+  if(window.turnstile) return draw();
+  const sc=document.createElement("script"); sc.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; sc.async=true; sc.onload=draw; document.head.appendChild(sc);
+}
+
+function go(d){ const n=state.step+d; if(n>=0&&n<STEPS.length) show(n); }
+
+/* ===== 제출 ===== */
+async function submit(){
+  const btn=$("#next"); btn.disabled=true; btn.textContent="접수 중…";
+  const payload={
+    ...state.data,
+    name:$("#f-name").value.trim(), phone:$("#f-phone").value.trim(),
+    address:$("#f-addr").value+" "+$("#f-addr2").value.trim(),
+    memo:$("#f-memo").value.trim(), marketing:$("#c-2").checked,
+    website:$("#f-hp").value,                 // 숨김 필드(사람은 항상 빈 값)
+    elapsed:Date.now()-loadedAt,              // 페이지 열고 제출까지 걸린 시간(ms)
+    tsToken,
+    source:location.href
+  };
+  try{
+    if(ENDPOINT){
+      const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+      const j=await r.json();
+      if(!j.ok) throw new Error(j.error||r.status);
+    } else console.log("[DRAFT] 제출 데이터", payload);
+    $("#flow").hidden=true; $("#done").hidden=false; window.scrollTo({top:0});
+  }catch(e){
+    btn.disabled=false; btn.textContent="상담 신청하기";
+    alert("접수 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+  }
+}
+
+build();
+</script>
+</body>
+</html>
